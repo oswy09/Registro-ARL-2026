@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap');
+
+@font-face {
+  font-family: 'Publico Headline Web';
+  src: url('https://res.cloudinary.com/ddqbnr9vo/raw/upload/v1776114950/PublicoHeadline-Light-Web_viavlr.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Publico Headline Web';
+  src: url('https://clientes.axacolpatria.co/documents/41258/21551328/PublicoHeadline-Bold-Web.woff2') format('woff2'),
+    url('https://clientes.axacolpatria.co/documents/41258/21551328/PublicoHeadline-Bold-Web.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Publico Headline Bold Web';
+  src: url('https://clientes.axacolpatria.co/documents/41258/21551328/PublicoHeadline-Bold-Web.woff2') format('woff2'),
+    url('https://clientes.axacolpatria.co/documents/41258/21551328/PublicoHeadline-Bold-Web.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}

@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.env
+.env.local
+*.log
+.DS_Store
+
+# Archivos temporales de sesión
+.playwright-mcp/
+BCK_dist/
+
+# Capturas de pantalla de desarrollo
+*.png
+
+# Archivos internos de Claude
+.claude/
