@@ -1294,6 +1294,7 @@ const App = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
+  const [passwordTouched, setPasswordTouched] = useState(false);
   const [affiliationFocused, setAffiliationFocused] = useState(false);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [activeModal, setActiveModal] = useState<StatusModalType>(null);
@@ -2537,7 +2538,7 @@ const App = () => {
                     </p>
                     <div className="relative">
                       <div className="relative">
-                        <InputField label="Contraseña" required type={showPassword ? "text" : "password"} placeholder="********" icon={<Lock className="w-5 h-5" />} value={formData.password} onChange={(e) => handleInputChange('password', e.target.value)} onFocus={() => setPasswordFocused(true)} onBlur={() => setPasswordFocused(false)} isValid={isPasswordValid} />
+                        <InputField label="Contraseña" required type={showPassword ? "text" : "password"} placeholder="********" icon={<Lock className="w-5 h-5" />} value={formData.password} onChange={(e) => { handleInputChange('password', e.target.value); }} onFocus={() => { setPasswordFocused(true); }} onBlur={() => { setPasswordFocused(false); if (formData.password !== '') setPasswordTouched(true); }} isValid={isPasswordValid} error={passwordTouched && !isPasswordValid && !passwordFocused && formData.password !== '' ? "La contraseña no cumple todos los requisitos" : undefined} />
                         <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-[38px] text-gray-400">{showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}</button>
                       </div>
                       
@@ -2549,7 +2550,7 @@ const App = () => {
                                 Tu contraseña debe cumplir con las siguientes características:
                               </h3>
                               <div className="h-px bg-gray-100 w-full mb-4" />
-                              
+
                               <div className="space-y-4">
                                 <div>
                                   <p className="text-[14px] font-bold text-gray-800 mb-2">Debe contener:</p>
@@ -2567,6 +2568,26 @@ const App = () => {
                                   <PasswordRequirementNoStrike met={passReqs.noNames} text="Tus nombres o apellidos" />
                                 </div>
                               </div>
+                            </div>
+                          </motion.div>
+                        )}
+
+                        {/* Panel de errores al salir del campo con contraseña inválida */}
+                        {!passwordFocused && passwordTouched && formData.password !== '' && !isPasswordValid && (
+                          <motion.div key="pwd-error-summary" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+                            <div className="bg-[#FFF5F7] border border-[#880727]/30 rounded-lg p-4 mt-2 flex flex-col gap-1.5">
+                              <p className="text-[13px] font-bold text-[#880727] mb-1 flex items-center gap-1.5">
+                                <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                                Aún faltan los siguientes requisitos:
+                              </p>
+                              {!passReqs.length    && <p className="text-[12.5px] text-[#880727] flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#880727] flex-shrink-0" />Longitud mínima de 10 caracteres</p>}
+                              {!passReqs.upper     && <p className="text-[12.5px] text-[#880727] flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#880727] flex-shrink-0" />Una letra en mayúscula</p>}
+                              {!passReqs.lower     && <p className="text-[12.5px] text-[#880727] flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#880727] flex-shrink-0" />Una letra en minúscula</p>}
+                              {!passReqs.number    && <p className="text-[12.5px] text-[#880727] flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#880727] flex-shrink-0" />Un número</p>}
+                              {!passReqs.special   && <p className="text-[12.5px] text-[#880727] flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#880727] flex-shrink-0" />Un carácter especial #?!@$%*+-=_</p>}
+                              {!passReqs.noSequence && <p className="text-[12.5px] text-[#880727] flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#880727] flex-shrink-0" />No debe contener secuencias numéricas</p>}
+                              {!passReqs.noDoc     && <p className="text-[12.5px] text-[#880727] flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#880727] flex-shrink-0" />No debe contener tu número de documento</p>}
+                              {!passReqs.noNames   && <p className="text-[12.5px] text-[#880727] flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#880727] flex-shrink-0" />No debe contener tus nombres o apellidos</p>}
                             </div>
                           </motion.div>
                         )}
