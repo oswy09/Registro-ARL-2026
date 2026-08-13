@@ -9,8 +9,8 @@ dist/
 .playwright-mcp/
 BCK_dist/
 
-# Capturas de pantalla de desarrollo
-*.png
+# Capturas de pantalla de desarrollo (solo raíz)
+/*.png
 
 # Archivos internos de Claude
 .claude/
